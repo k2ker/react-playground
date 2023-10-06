@@ -5,6 +5,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useEmailDupCheckPost, useSignUpPost } from "@/api/auth";
 import Cookies from "js-cookie";
+import Input from "./ui/Input";
+import { Validation } from "@/utils/validation";
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -16,8 +18,9 @@ const SignUpForm = () => {
     handleSubmit,
     watch,
     getValues,
+    setValue,
     formState: { errors },
-  } = useForm<SignUpInputs>();
+  } = useForm<SignUpInputs>({ mode: "onChange" });
 
   const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
     useSignUpPostMutation.mutate(
@@ -68,42 +71,62 @@ const SignUpForm = () => {
     <div className="w-full">
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex w-full flex-row gap-3 ">
-          <input
-            className="input-auth flex-1 disabled:bg-gray-500"
-            placeholder="E-mail"
-            required
+          <Input
+            className="w-full flex-1"
             disabled={isEmailDupCheck}
-            type="email"
-            {...register("email")}
+            placeholder="E-mail"
+            error={errors.email?.message}
+            success={!!(watch("email") && !errors.email?.message)}
+            {...register("email", {
+              ...Validation.email,
+            })}
           />
           <button
-            className=" h-12 w-28 rounded-lg bg-blue-500 text-white"
+            className=" h-12 w-28 rounded-lg bg-blue-500 text-white disabled:bg-gray-300"
             type="button"
+            disabled={
+              !(watch("email") && !errors.email?.message) || isEmailDupCheck
+            }
             onClick={() => handleClickEmailDupCheck(getValues("email"))}
           >
             중복체크
           </button>
         </div>
-        <input
-          className="input-auth"
+        <Input
           placeholder="Name"
-          required
-          type="text"
-          {...register("name")}
+          error={errors.name?.message}
+          success={!!(watch("name") && !errors.name?.message)}
+          {...register("name", {
+            ...Validation.name,
+          })}
         />
-        <input
-          className="input-auth"
+        <Input
           placeholder="Password"
-          required
           type="password"
-          {...register("password")}
+          success={!!(watch("password") && !errors.password?.message)}
+          error={errors.password?.message}
+          {...register("password", {
+            ...Validation.password,
+            onChange: () => setValue("passwordRepeat", ""),
+          })}
         />
-        <input
-          className="input-auth"
+        <Input
           placeholder="Password Repeat"
-          required
           type="password"
-          {...register("passwordRepeat")}
+          success={
+            !!(
+              watch("passwordRepeat") &&
+              watch("passwordRepeat") === watch("password") &&
+              !errors.passwordRepeat?.message
+            )
+          }
+          error={errors.passwordRepeat?.message}
+          {...register("passwordRepeat", {
+            required: "미입력 상태입니다.",
+            validate: () =>
+              watch("passwordRepeat") === watch("password") ||
+              "비밀번호가 일치하지 않습니다.",
+          })}
         />
         <button
           className="btn-auth disabled:bg-slate-300"
@@ -111,9 +134,12 @@ const SignUpForm = () => {
           disabled={
             !(
               watch("email") &&
+              !errors.email?.message &&
               watch("password") &&
+              !errors.password?.message &&
               watch("password") === watch("passwordRepeat") &&
               watch("name") &&
+              !errors.name?.message &&
               isEmailDupCheck
             )
           }

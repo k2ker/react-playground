@@ -7,7 +7,7 @@
     @apply h-screen w-full bg-gray-900;
   }
   .input-auth {
-    @apply h-12 w-full rounded-lg bg-gray-200 px-4 text-black;
+    @apply h-12 w-full rounded-lg bg-gray-200 px-4 text-black outline-none disabled:bg-gray-300;
   }
   .btn-auth {
     @apply h-12 w-full rounded-lg bg-blue-500 text-white;

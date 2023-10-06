@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useSignInPost } from "@/api/auth";
 import Cookies from "js-cookie";
 import axios from "axios";
+import Input from "./ui/Input";
+import { Validation } from "@/utils/validation";
 
 const SignInForm = () => {
   const router = useRouter();
@@ -14,7 +16,7 @@ const SignInForm = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<SignInInputs>();
+  } = useForm<SignInInputs>({ mode: "onChange" });
 
   const onSubmit: SubmitHandler<SignInInputs> = (data) => {
     useSignInPostMutation.mutate(
@@ -43,21 +45,31 @@ const SignInForm = () => {
   return (
     <div className="w-full">
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          className="input-auth"
+        <Input
           placeholder="E-mail"
-          required
-          type="email"
-          {...register("email")}
+          error={errors.email?.message}
+          success={!!(watch("email") && !errors.email?.message)}
+          {...register("email", {
+            ...Validation.email,
+          })}
         />
-        <input
-          className="input-auth"
+        <Input
           placeholder="Password"
-          required
           type="password"
-          {...register("password")}
+          success={!!(watch("password") && !errors.password?.message)}
+          error={errors.password?.message}
+          {...register("password", {
+            ...Validation.password,
+          })}
         />
-        <button className="btn-auth" type="submit">
+        <button
+          className="btn-auth disabled:bg-gray-300"
+          type="submit"
+          disabled={
+            !(watch("email") && !errors.email?.message) ||
+            !(watch("password") && !errors.password?.message)
+          }
+        >
           Login
         </button>
       </form>
