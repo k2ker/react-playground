@@ -1,3 +1,7 @@
+type UserPatchParam = {
+  name: string;
+};
+
 type SignInParam = {
   email: string;
   password: string;
