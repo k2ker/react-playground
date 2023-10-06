@@ -22,7 +22,7 @@ const SignUpForm = () => {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try{
-      const response = await axios.post('http://localhost:3000/auth/signup', {
+      const response = await axios.post('https://hong-ground.com//auth/signup', {
         email: data?.email,
         password: data?.password 
       });

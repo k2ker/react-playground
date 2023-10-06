@@ -5,7 +5,7 @@ import axios from "axios";
 
 const SocialForm = () => {
   const handleClickSocial = useCallback(async (social: string) => {
-    window.location.href = `http://localhost:3000/auth/${social}`;
+    window.location.href = `https://hong-ground.com/auth/${social}`;
 
     // await signIn(social, {
     //   redirect: true,
