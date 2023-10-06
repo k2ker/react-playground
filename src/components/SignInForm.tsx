@@ -25,7 +25,7 @@ const SignInForm = ({ trigger }: Props) => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try{
-      const response = await axios.post('https://hong-ground.com/auth/login', {
+      const response = await axios.post('https://hong-ground.com/api/auth/login', {
         email: data?.email,
         password: data?.password 
       });
