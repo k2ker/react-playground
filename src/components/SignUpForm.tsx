@@ -69,9 +69,10 @@ const SignUpForm = () => {
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex w-full flex-row gap-3 ">
           <input
-            className="input-auth flex-1"
+            className="input-auth flex-1 disabled:bg-gray-500"
             placeholder="E-mail"
             required
+            disabled={isEmailDupCheck}
             type="email"
             {...register("email")}
           />
