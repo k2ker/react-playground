@@ -3,6 +3,7 @@ import { memo } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 type Inputs = {
   email: string;
@@ -23,22 +24,35 @@ const SignInForm = ({ trigger }: Props) => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const result = await signIn("credentials", {
-      email: data?.email,
-      password: data?.password,
-      redirect: false,
-    });
-
-    if (result?.ok) router.push("/auth/email");
-
-    if (result?.error) {
-      switch (result?.error) {
-        case "noUser": {
-          trigger();
-          break;
-        }
-      }
+    try{
+      const response = await axios.post('http://localhost:3000/auth/login', {
+        email: data?.email,
+        password: data?.password 
+      });
+      // TODO : response.data.accessToken 활용
+      // response.data.accessToken
+    }catch(error){
+      // TODO : error handling
+      // error.response.data.message
     }
+    
+    
+    // const result = await signIn("credentials", {
+    //   email: data?.email,
+    //   password: data?.password,
+    //   redirect: false,
+    // });
+
+    // if (result?.ok) router.push("/auth/email");
+
+    // if (result?.error) {
+    //   switch (result?.error) {
+    //     case "noUser": {
+    //       trigger();
+    //       break;
+    //     }
+    //   }
+    // }
   };
 
   return (
@@ -49,6 +63,7 @@ const SignInForm = ({ trigger }: Props) => {
           placeholder="E-mail"
           required
           type="email"
+          value="nightowl11@gmail.com"
           {...register("email")}
         />
         <input
@@ -56,6 +71,7 @@ const SignInForm = ({ trigger }: Props) => {
           placeholder="Password"
           required
           type="password"
+          value="112233"
           {...register("password")}
         />
         <button className="btn-auth" type="submit">

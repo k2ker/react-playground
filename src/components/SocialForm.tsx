@@ -1,13 +1,16 @@
 "use client";
 import { memo, useCallback } from "react";
 import { signIn } from "next-auth/react";
+import axios from "axios";
 
 const SocialForm = () => {
   const handleClickSocial = useCallback(async (social: string) => {
-    await signIn(social, {
-      redirect: true,
-      callbackUrl: `/auth/${social}`,
-    }).catch((err) => console.log(err));
+    window.location.href = `http://localhost:3000/auth/${social}`;
+
+    // await signIn(social, {
+    //   redirect: true,
+    //   callbackUrl: `/auth/${social}`,
+    // }).catch((err) => console.log(err));
   }, []);
 
   return (
@@ -20,11 +23,11 @@ const SocialForm = () => {
         KAKAO
       </button>
       <button
-        className="btn-naver"
+        className="btn-google"
         type="submit"
-        onClick={() => handleClickSocial("naver")}
+        onClick={() => handleClickSocial("google")}
       >
-        NAVER
+        GOOGLE
       </button>
     </section>
   );

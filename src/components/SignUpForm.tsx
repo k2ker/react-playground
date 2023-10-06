@@ -21,14 +21,26 @@ const SignUpForm = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    await signIn("credentials", {
-      email: data?.email,
-      name: data?.name,
-      password: data?.password,
-      redirect: false,
-    }).then((result) => {
-      if (result?.ok) router.push("/auth/email");
-    });
+    try{
+      const response = await axios.post('http://localhost:3000/auth/signup', {
+        email: data?.email,
+        password: data?.password 
+      });
+      // TODO : response.data.accessToken 활용
+      // response.data.accessToken
+    }catch(error){
+      // TODO : error handling
+      // error.response.data.message
+    }
+
+    // await signIn("credentials", {
+    //   email: data?.email,
+    //   name: data?.name,
+    //   password: data?.password,
+    //   redirect: false,
+    // }).then((result) => {
+    //   if (result?.ok) router.push("/auth/email");
+    // });
   };
 
   return (
@@ -39,6 +51,7 @@ const SignUpForm = () => {
           placeholder="Name"
           required
           type="text"
+          value="홍길동"
           {...register("name")}
         />
         <input
@@ -46,6 +59,7 @@ const SignUpForm = () => {
           placeholder="E-mail"
           required
           type="email"
+          value="nightowl11@gmail.com"
           {...register("email")}
         />
         <input
@@ -53,6 +67,7 @@ const SignUpForm = () => {
           placeholder="Password"
           required
           type="password"
+          value="112233"
           {...register("password")}
         />
         <button className="btn-auth" type="submit">

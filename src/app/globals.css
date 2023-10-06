@@ -15,7 +15,7 @@
   .btn-kakao {
     @apply h-12 w-full rounded-lg bg-yellow-400 text-white;
   }
-  .btn-naver {
-    @apply h-12 w-full rounded-lg bg-green-500 text-white;
+  .btn-google {
+    @apply h-12 w-full rounded-lg bg-blue-500 text-white;
   }
 }
