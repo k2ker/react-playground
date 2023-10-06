@@ -51,7 +51,6 @@ const SignUpForm = () => {
           placeholder="Name"
           required
           type="text"
-          value="홍길동"
           {...register("name")}
         />
         <input
@@ -59,7 +58,6 @@ const SignUpForm = () => {
           placeholder="E-mail"
           required
           type="email"
-          value="nightowl11@gmail.com"
           {...register("email")}
         />
         <input
@@ -67,7 +65,6 @@ const SignUpForm = () => {
           placeholder="Password"
           required
           type="password"
-          value="112233"
           {...register("password")}
         />
         <button className="btn-auth" type="submit">

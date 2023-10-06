@@ -63,7 +63,6 @@ const SignInForm = ({ trigger }: Props) => {
           placeholder="E-mail"
           required
           type="email"
-          value="nightowl11@gmail.com"
           {...register("email")}
         />
         <input
@@ -71,7 +70,6 @@ const SignInForm = ({ trigger }: Props) => {
           placeholder="Password"
           required
           type="password"
-          value="112233"
           {...register("password")}
         />
         <button className="btn-auth" type="submit">
