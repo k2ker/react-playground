@@ -12,7 +12,7 @@ const AuthForm = () => {
       {isLogin ? (
         <React.Fragment>
           <h1>로그인</h1>
-          <SignInForm trigger={() => setIsLogin(false)} />
+          <SignInForm />
           <h2 onClick={() => setIsLogin(false)}>회원가입</h2>
         </React.Fragment>
       ) : (

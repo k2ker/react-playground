@@ -1,51 +1,88 @@
 "use client";
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import axios from "axios";
-import SocialForm from "./SocialForm";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
-type Inputs = {
-  email: string;
-  name: string;
-  password: string;
-};
+import { useEmailDupCheckPost, useSignUpPost } from "@/api/auth";
+import Cookies from "js-cookie";
 
 const SignUpForm = () => {
   const router = useRouter();
+  const [isEmailDupCheck, setIsEmailDupCheck] = useState(false); //이메일 중복확인 여부
+  const useSignUpPostMutation = useSignUpPost();
+  const useEmailDupCheckMutation = useEmailDupCheckPost();
   const {
     register,
     handleSubmit,
     watch,
+    getValues,
     formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    try{
-      const response = await axios.post('https://hong-ground.com/api/auth/signup', {
-        email: data?.email,
-        password: data?.password 
-      });
-      // TODO : response.data.accessToken 활용
-      // response.data.accessToken
-    }catch(error){
-      // TODO : error handling
-      // error.response.data.message
-    }
+  } = useForm<SignUpInputs>();
 
-    // await signIn("credentials", {
-    //   email: data?.email,
-    //   name: data?.name,
-    //   password: data?.password,
-    //   redirect: false,
-    // }).then((result) => {
-    //   if (result?.ok) router.push("/auth/email");
-    // });
+  const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
+    useSignUpPostMutation.mutate(
+      {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      },
+      {
+        onSuccess: (data) => {
+          //쿠키 저장
+          Cookies.set("hong_access_token", data.token, {
+            expires: data.expiresDate, //Date
+          });
+          //페이지 이동
+          router.push("/home");
+        },
+        onError: (error) => {
+          axios.isAxiosError(error)
+            ? alert(error?.response?.data?.message)
+            : alert("회원가입 실패");
+        },
+      },
+    );
   };
+
+  const handleClickEmailDupCheck = useCallback((email: string) => {
+    useEmailDupCheckMutation.mutate(
+      {
+        email: email,
+      },
+      {
+        onSuccess: (data) => {
+          setIsEmailDupCheck(true);
+          alert("사용가능한 이메일입니다.");
+        },
+        onError: (error) => {
+          setIsEmailDupCheck(false);
+          axios.isAxiosError(error)
+            ? alert(error?.response?.data?.message)
+            : alert("이메일 중복확인 실패");
+        },
+      },
+    );
+  }, []);
 
   return (
     <div className="w-full">
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex w-full flex-row gap-3 ">
+          <input
+            className="input-auth flex-1"
+            placeholder="E-mail"
+            required
+            type="email"
+            {...register("email")}
+          />
+          <button
+            className=" h-12 w-28 rounded-lg bg-blue-500 text-white"
+            type="button"
+            onClick={() => handleClickEmailDupCheck(getValues("email"))}
+          >
+            중복체크
+          </button>
+        </div>
         <input
           className="input-auth"
           placeholder="Name"
@@ -55,19 +92,31 @@ const SignUpForm = () => {
         />
         <input
           className="input-auth"
-          placeholder="E-mail"
-          required
-          type="email"
-          {...register("email")}
-        />
-        <input
-          className="input-auth"
           placeholder="Password"
           required
           type="password"
           {...register("password")}
         />
-        <button className="btn-auth" type="submit">
+        <input
+          className="input-auth"
+          placeholder="Password Repeat"
+          required
+          type="password"
+          {...register("passwordRepeat")}
+        />
+        <button
+          className="btn-auth disabled:bg-slate-300"
+          type="submit"
+          disabled={
+            !(
+              watch("email") &&
+              watch("password") &&
+              watch("password") === watch("passwordRepeat") &&
+              watch("name") &&
+              isEmailDupCheck
+            )
+          }
+        >
           Login
         </button>
       </form>

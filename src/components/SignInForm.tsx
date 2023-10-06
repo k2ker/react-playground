@@ -1,58 +1,43 @@
 "use client";
 import { memo } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useSignInPost } from "@/api/auth";
+import Cookies from "js-cookie";
 import axios from "axios";
 
-type Inputs = {
-  email: string;
-  password: string;
-};
-
-interface Props {
-  trigger(): void;
-}
-
-const SignInForm = ({ trigger }: Props) => {
+const SignInForm = () => {
   const router = useRouter();
+  const useSignInPostMutation = useSignInPost();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<SignInInputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    try{
-      const response = await axios.post('https://hong-ground.com/api/auth/login', {
-        email: data?.email,
-        password: data?.password 
-      });
-      // TODO : response.data.accessToken 활용
-      // response.data.accessToken
-    }catch(error){
-      // TODO : error handling
-      // error.response.data.message
-    }
-    
-    
-    // const result = await signIn("credentials", {
-    //   email: data?.email,
-    //   password: data?.password,
-    //   redirect: false,
-    // });
-
-    // if (result?.ok) router.push("/auth/email");
-
-    // if (result?.error) {
-    //   switch (result?.error) {
-    //     case "noUser": {
-    //       trigger();
-    //       break;
-    //     }
-    //   }
-    // }
+  const onSubmit: SubmitHandler<SignInInputs> = (data) => {
+    useSignInPostMutation.mutate(
+      {
+        email: data.email,
+        password: data.password,
+      },
+      {
+        onSuccess: (data) => {
+          //쿠키 저장
+          Cookies.set("hong_access_token", data.token, {
+            expires: data.expiresDate, //Date
+          });
+          //페이지 이동
+          router.push("/home");
+        },
+        onError: (error) => {
+          axios.isAxiosError(error)
+            ? alert(error?.response?.data?.message)
+            : alert("로그인 실패");
+        },
+      },
+    );
   };
 
   return (

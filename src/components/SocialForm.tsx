@@ -1,36 +1,24 @@
-"use client";
-import { memo, useCallback } from "react";
-import { signIn } from "next-auth/react";
-import axios from "axios";
+import Link from "next/link";
 
 const SocialForm = () => {
-  const handleClickSocial = useCallback(async (social: string) => {
-    window.location.href = `https://hong-ground.com/api/auth/${social}`;
-
-    // await signIn(social, {
-    //   redirect: true,
-    //   callbackUrl: `/auth/${social}`,
-    // }).catch((err) => console.log(err));
-  }, []);
-
   return (
     <section className="flex w-full flex-col gap-2">
-      <button
+      <Link
         className="btn-kakao"
-        type="submit"
-        onClick={() => handleClickSocial("kakao")}
+        href={`${process.env.NEXT_PUBLIC_API_URL}/auth/kakao`}
+        target="_blank"
       >
         KAKAO
-      </button>
-      <button
+      </Link>
+      <Link
         className="btn-google"
-        type="submit"
-        onClick={() => handleClickSocial("google")}
+        href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}
+        target="_blank"
       >
         GOOGLE
-      </button>
+      </Link>
     </section>
   );
 };
 
-export default memo(SocialForm);
+export default SocialForm;
