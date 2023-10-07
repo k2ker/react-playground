@@ -14,7 +14,7 @@ interface RedirectState {
 
 interface AuthState {
   isLoggedIn: boolean;
-  logout: (callback: () => void) => void;
+  logout: (callback?: () => void) => void;
 }
 export const useRdirectStore = create<RedirectState>((set) => ({
   redirect: "/",
@@ -28,6 +28,6 @@ export const useAuthStore = create<AuthState>((set) => ({
     Cookies.remove("hong_access_token");
     set({ isLoggedIn: false });
     queryClient.removeQueries(userKeys.all);
-    callback();
+    callback && callback();
   },
 }));

@@ -1,6 +1,6 @@
 "use client";
 import AuthForm from "@/components/AuthForm";
-import { useRdirectStore } from "@/store/auth";
+import { useAuthStore, useRdirectStore } from "@/store/auth";
 import { useEffect } from "react";
 
 export default function Login({
@@ -9,8 +9,10 @@ export default function Login({
   params: { redirect?: Array<string> };
 }) {
   const { redirectSet } = useRdirectStore();
+  const { logout } = useAuthStore();
 
   useEffect(() => {
+    logout();
     redirectSet(params.redirect?.[0] ?? "/");
   }, []);
 

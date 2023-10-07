@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
       const redirect = request.nextUrl.searchParams.get("redirect") ?? "/";
       const response = NextResponse.redirect(new URL(redirect, request.url));
 
-      response.cookies.set("hong_access_token", token);
+      response.cookies.set(TOKEN_NAME, token);
 
       return response;
     }
@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
 
   if (request.nextUrl.pathname.startsWith("/mypage")) {
     if (!request.cookies.has(TOKEN_NAME)) {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL("/login", request.url));
     }
   }
 }

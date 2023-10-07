@@ -10,14 +10,7 @@ export interface Props {}
 const Header = () => {
   const path = usePathname();
   const router = useRouter();
-  const [shouldRender, setShouldRender] = useState(false);
   const { isLoggedIn, logout } = useAuthStore();
-
-  useEffect(() => {
-    if (path) {
-      setShouldRender(!path.startsWith("/login"));
-    }
-  }, [path]);
 
   const handleLogout = useCallback(() => {
     logout(() => {
@@ -25,8 +18,8 @@ const Header = () => {
     });
   }, [logout, router]);
 
-  if (!shouldRender) {
-    return <></>;
+  if (path?.startsWith("/login")) {
+    return null;
   }
 
   return (
@@ -34,7 +27,7 @@ const Header = () => {
       <Link href="/">HOME</Link>
       {isLoggedIn ? (
         <div className="flex flex-row gap-6">
-          {!path.startsWith("/mypage") && (
+          {!path?.startsWith("/mypage") && (
             <Link href={"/mypage"}>마이페이지</Link>
           )}
           <button onClick={handleLogout}>로그아웃</button>
