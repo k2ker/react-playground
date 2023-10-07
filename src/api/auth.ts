@@ -2,7 +2,7 @@ import api from "./api";
 import { useMutation } from "@tanstack/react-query";
 
 const postSignIn = async (params: SignInParam) => {
-  const response = await api.post(`/auth/login`, params);
+  const response = await api.post(`/api/auth/login`, params);
   return response.data;
 };
 
@@ -11,7 +11,7 @@ export const useSignInPost = () => {
 };
 
 const postSignUp = async (params: SignUpParam) => {
-  const response = await api.post(`/auth/signup`, params);
+  const response = await api.post(`/api/auth/signup`, params);
   return response.data;
 };
 
@@ -20,7 +20,7 @@ export const useSignUpPost = () => {
 };
 
 const postEmailDupCheck = async (params: EmailDupCheckParam) => {
-  const response = await api.post(`/user/checkEmail`, params);
+  const response = await api.post(`/api/user/checkEmail`, params);
   return response.data;
 };
 
