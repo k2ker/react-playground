@@ -1,6 +1,8 @@
+import { useRdirectStore } from "@/store/auth";
 import Link from "next/link";
 
 const SocialForm = () => {
+  const { redirect } = useRdirectStore();
   return (
     <section className="flex w-full flex-col gap-2">
       <Link

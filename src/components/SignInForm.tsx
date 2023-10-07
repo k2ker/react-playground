@@ -7,10 +7,12 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import Input from "./ui/Input";
 import { Validation } from "@/utils/validation";
+import { useRdirectStore } from "@/store/auth";
 
 const SignInForm = () => {
   const router = useRouter();
   const useSignInPostMutation = useSignInPost();
+  const { redirect } = useRdirectStore();
   const {
     register,
     handleSubmit,
@@ -29,7 +31,7 @@ const SignInForm = () => {
           //쿠키 저장
           Cookies.set("hong_access_token", data.accessToken);
           //페이지 이동
-          router.push("/home");
+          router.push(redirect);
         },
         onError: (error) => {
           axios.isAxiosError(error)
