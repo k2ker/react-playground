@@ -7,7 +7,7 @@ export const userKeys = {
 };
 
 const getUserMe = async () => {
-  const response = await api.get(`/user/me`);
+  const response = await api.get(`/api/user/me`);
   return response.data;
 };
 
@@ -18,7 +18,7 @@ export const useUserMeGet = () =>
   });
 
 const patchUserMe = (params: UserPatchParam) => {
-  return api.patch(`/user/me`, params);
+  return api.patch(`/api/user/me`, params);
 };
 
 export const usePatchUserMe = () => {
