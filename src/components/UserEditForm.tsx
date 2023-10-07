@@ -22,12 +22,6 @@ const UserEditForm = () => {
     formState: { errors },
   } = useForm<SignUpInputs>({ mode: "onChange" });
 
-  useEffect(() => {
-    !Cookies.get("hong_access_token")
-      ? router.replace("/")
-      : setToken(Cookies.get("hong_access_token") ?? null);
-  }, []);
-
   const handleClickEditUser = useCallback((name: string) => {
     usePatchUserMeMutation.mutate(
       {

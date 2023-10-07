@@ -7,13 +7,18 @@ import { useEmailDupCheckPost, useSignUpPost } from "@/api/auth";
 import Cookies from "js-cookie";
 import Input from "./ui/Input";
 import { Validation } from "@/utils/validation";
+import { useRdirectStore } from "@/store/auth";
 
-const SignUpForm = () => {
-  const [isLogin, setIsLogin] = useState(true);
+interface Props {
+  trigger(): void;
+}
+
+const SignUpForm = ({ trigger }: Props) => {
   const router = useRouter();
   const [isEmailDupCheck, setIsEmailDupCheck] = useState(false); //이메일 중복확인 여부
   const useSignUpPostMutation = useSignUpPost();
   const useEmailDupCheckMutation = useEmailDupCheckPost();
+  const { redirect } = useRdirectStore();
   const {
     register,
     handleSubmit,
@@ -32,15 +37,8 @@ const SignUpForm = () => {
       },
       {
         onSuccess: (data) => {
-          alert(data)
-          // TODO 로그인 폼으로 변경
-
-          // //쿠키 저장
-          // Cookies.set("hong_access_token", data.accessToken, {
-          //   expires: data.expiresDate, //Date
-          // });
-          // //페이지 이동
-          // router.push("/home");
+          trigger();
+          alert(data);
         },
         onError: (error) => {
           axios.isAxiosError(error)

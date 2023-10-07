@@ -18,7 +18,7 @@ const AuthForm = () => {
       ) : (
         <React.Fragment>
           <h1>회원가입</h1>
-          <SignupForm />
+          <SignupForm trigger={() => setIsLogin(false)} />
           <h2 onClick={() => setIsLogin(true)}>로그인으로 돌아가기</h2>
         </React.Fragment>
       )}
