@@ -9,6 +9,7 @@ import Input from "./ui/Input";
 import { Validation } from "@/utils/validation";
 
 const SignUpForm = () => {
+  const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
   const [isEmailDupCheck, setIsEmailDupCheck] = useState(false); //이메일 중복확인 여부
   const useSignUpPostMutation = useSignUpPost();
@@ -31,12 +32,15 @@ const SignUpForm = () => {
       },
       {
         onSuccess: (data) => {
-          //쿠키 저장
-          Cookies.set("hong_access_token", data.token, {
-            expires: data.expiresDate, //Date
-          });
-          //페이지 이동
-          router.push("/home");
+          alert(data)
+          // TODO 로그인 폼으로 변경
+
+          // //쿠키 저장
+          // Cookies.set("hong_access_token", data.accessToken, {
+          //   expires: data.expiresDate, //Date
+          // });
+          // //페이지 이동
+          // router.push("/home");
         },
         onError: (error) => {
           axios.isAxiosError(error)
@@ -144,7 +148,7 @@ const SignUpForm = () => {
             )
           }
         >
-          Login
+          가입하기
         </button>
       </form>
     </div>

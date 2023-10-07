@@ -20,7 +20,7 @@ export const useSignUpPost = () => {
 };
 
 const postEmailDupCheck = async (params: EmailDupCheckParam) => {
-  const response = await api.post(`주소필요`, params);
+  const response = await api.post(`/user/checkEmail`, params);
   return response.data;
 };
 

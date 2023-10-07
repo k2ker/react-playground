@@ -27,9 +27,7 @@ const SignInForm = () => {
       {
         onSuccess: (data) => {
           //쿠키 저장
-          Cookies.set("hong_access_token", data.token, {
-            expires: data.expiresDate, //Date
-          });
+          Cookies.set("hong_access_token", data.accessToken);
           //페이지 이동
           router.push("/home");
         },

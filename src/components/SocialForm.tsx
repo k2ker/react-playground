@@ -5,14 +5,14 @@ const SocialForm = () => {
     <section className="flex w-full flex-col gap-2">
       <Link
         className="btn-kakao"
-        href={`${process.env.NEXT_PUBLIC_API_URL}/auth/kakao?redirect=home`}
+        href={`${process.env.NEXT_PUBLIC_API_URL}/auth/kakao`}
         // target="_blank"
       >
         KAKAO
       </Link>
       <Link
         className="btn-google"
-        href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google?redirect=home`}
+        href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}
         // target="_blank"
       >
         GOOGLE
