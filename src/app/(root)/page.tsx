@@ -1,9 +1,9 @@
-import Products from "@/components/Products";
+import ProductList from "@/components/ProductList";
 
-export default async function Main() {
+export default function Main() {
   return (
     <main className="main">
-      <Products />
+      <ProductList />
     </main>
   );
 }
