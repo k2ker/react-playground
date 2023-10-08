@@ -5,7 +5,7 @@ const nextConfig = {
       "localhost",
       "phinf.pstatic.net",
       "k.kakaocdn.net",
-      "https://fakestoreapi.com",
+      "fakestoreapi.com",
     ],
   },
 };

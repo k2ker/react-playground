@@ -23,7 +23,7 @@ const Header = () => {
   }
 
   return (
-    <header className="fixed left-0 top-0 flex h-16 w-full flex-row items-center justify-between bg-blue-500 p-4">
+    <header className=" fixed left-0 top-0 z-50 flex h-16 w-full flex-row items-center justify-between bg-blue-500 p-4">
       <Link href="/">HOME</Link>
       {isLoggedIn ? (
         <div className="flex flex-row gap-6">
