@@ -9,12 +9,6 @@ interface ItemProps {
 }
 
 const ProductItem = ({ item }: ItemProps) => {
-  //   const startArray = Array.from({ length: item?.rating }, (_, index) => (
-  //     <span key={index} className="text-yellow-400">
-  //       <IoIosStar />
-  //     </span>
-  //   ));
-
   return (
     <div className="w-full overflow-hidden rounded-lg">
       <div>
@@ -25,6 +19,8 @@ const ProductItem = ({ item }: ItemProps) => {
               alt="product image"
               width={500}
               height={500}
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
               className="h-full w-full rounded-t-lg object-cover duration-200 group-hover:scale-110"
             />
           </div>
