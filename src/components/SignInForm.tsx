@@ -9,7 +9,11 @@ import Input from "./ui/Input";
 import { Validation } from "@/utils/validation";
 import { useRdirectStore } from "@/store/auth";
 
-const SignInForm = () => {
+interface SignInProps {
+  disabled?: boolean;
+}
+
+const SignInForm = ({ disabled }: SignInProps) => {
   const router = useRouter();
   const useSignInPostMutation = useSignInPost();
   const { redirect } = useRdirectStore();
@@ -48,6 +52,7 @@ const SignInForm = () => {
         <Input
           placeholder="E-mail"
           error={errors.email?.message}
+          disabled={disabled}
           success={!!(watch("email") && !errors.email?.message)}
           {...register("email", {
             ...Validation.email,
@@ -56,6 +61,7 @@ const SignInForm = () => {
         <Input
           placeholder="Password"
           type="password"
+          disabled={disabled}
           success={!!(watch("password") && !errors.password?.message)}
           error={errors.password?.message}
           {...register("password", {
@@ -67,7 +73,8 @@ const SignInForm = () => {
           type="submit"
           disabled={
             !(watch("email") && !errors.email?.message) ||
-            !(watch("password") && !errors.password?.message)
+            !(watch("password") && !errors.password?.message) ||
+            disabled
           }
         >
           Login

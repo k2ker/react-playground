@@ -26,9 +26,17 @@ async function Proxy(request: Request) {
 
     const resMe = await axios.get("https://kapi.kakao.com/v2/user/me", {});
 
-    // console.log(resMe.data);
-
     nextResponse.cookies.set("kakao_test_token", resToken.data.access_token);
+
+    nextResponse.cookies.set(
+      "kakao_test_nickname",
+      resMe.data.kakao_account.profile.nickname,
+    );
+
+    nextResponse.cookies.set(
+      "kakao_test_thumbnail",
+      resMe.data.kakao_account.profile.thumbnail_image_url ?? "",
+    );
 
     return nextResponse;
   } catch (error) {
