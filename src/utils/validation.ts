@@ -20,4 +20,32 @@ export const Validation = {
       message: "공백 없이 입력해주세요.",
     },
   },
+  FirstName: {
+    required: "미입력 상태입니다.",
+    pattern: {
+      value: /^\S+$/,
+      message: "공백 없이 입력해주세요.",
+    },
+  },
+  LastName: {
+    required: "미입력 상태입니다.",
+    pattern: {
+      value: /^\S+$/,
+      message: "공백 없이 입력해주세요.",
+    },
+  },
+  Age: {
+    required: "미입력 상태입니다.",
+    pattern: {
+      value: /^\S+$/,
+      message: "공백 없이 입력해주세요.",
+    },
+  },
+  Salary: {
+    required: "미입력 상태입니다.",
+    pattern: {
+      value: /^\S+$/,
+      message: "공백 없이 입력해주세요.",
+    },
+  },
 };

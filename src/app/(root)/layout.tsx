@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <Providers>
-        <body className="w-full bg-gray-900">
+        <body>
           <Header />
           {children}
         </body>

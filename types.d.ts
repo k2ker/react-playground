@@ -46,3 +46,18 @@ type KakaoAuth = {
   scope: string;
   refresh_token_expires_in: number;
 };
+
+type Employee = {
+  id: string;
+  No: string;
+  FirstName: string;
+  LastName: string;
+  Salary: number;
+  Age: number;
+};
+
+type EmployeePostParam = Omit<Employee, id, No>;
+
+type EmployeePatchParam = Omit<Employee, id, No>;
+
+type EmployeeFormInputs = Partial<EmployeePostParam>;
