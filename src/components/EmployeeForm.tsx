@@ -118,7 +118,11 @@ const EmployeeForm = ({ initailValue, trigger }: Props) => {
       />
       <button
         type="submit"
-        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
+        disabled={
+          useEmployeePatchMutation.isLoading ||
+          useEmployeePostMutation.isLoading
+        }
       >
         저장
       </button>

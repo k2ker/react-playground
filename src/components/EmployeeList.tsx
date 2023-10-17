@@ -87,14 +87,16 @@ const EmployeeList = () => {
                 <td className="whitespace-nowrap px-6 py-4">{item.Age}</td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <button
-                    className="mr-2 text-blue-500 hover:text-blue-700"
+                    className={`mr-2 text-blue-500 hover:text-blue-700  disabled:text-gray-300`}
                     onClick={() => handleClickEdit(item)}
+                    disabled={useEmployeeDeleteMutation.isLoading}
                   >
                     수정
                   </button>
                   <button
-                    className="text-red-500 hover:text-red-700"
+                    className="text-red-500 hover:text-red-700 disabled:text-gray-300"
                     onClick={() => handleClickDelete(item.id)}
+                    disabled={useEmployeeDeleteMutation.isLoading}
                   >
                     삭제
                   </button>
