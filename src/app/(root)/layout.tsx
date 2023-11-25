@@ -1,9 +1,7 @@
 import Providers from "@/components/Providers";
 import "../globals.css";
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-
-const Header = dynamic(() => import("@/components/Header"), { ssr: false });
+import Layout from "@/components/Layout";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,10 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <Providers>
-        <body>
-          <Header />
-          {children}
-        </body>
+        <Layout>{children}</Layout>
       </Providers>
     </html>
   );

@@ -34,42 +34,42 @@ const EmployeeList = () => {
   return (
     <>
       <section className="w-full">
-        <table className="min-w-full divide-y divide-gray-200">
+        <table className="w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-1 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 No
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-1 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 First Name
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-1 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Last Name
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-1 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Salary
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-1 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Age
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                className="px-1 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
               >
                 Actions
               </th>
@@ -78,14 +78,14 @@ const EmployeeList = () => {
           <tbody className="divide-y divide-gray-200 bg-white">
             {employee?.map((item: Employee) => (
               <tr key={item.id}>
-                <td className="whitespace-nowrap px-6 py-4">{item.No}</td>
-                <td className="whitespace-nowrap px-6 py-4">
+                <td className="whitespace-nowrap px-1 py-4">{item.No}</td>
+                <td className="whitespace-nowrap px-1 py-4">
                   {item.FirstName}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4">{item.LastName}</td>
-                <td className="whitespace-nowrap px-6 py-4">{item.Salary}</td>
-                <td className="whitespace-nowrap px-6 py-4">{item.Age}</td>
-                <td className="whitespace-nowrap px-6 py-4">
+                <td className="whitespace-nowrap px-1 py-4">{item.LastName}</td>
+                <td className="whitespace-nowrap px-1 py-4">{item.Salary}</td>
+                <td className="whitespace-nowrap px-1 py-4">{item.Age}</td>
+                <td className="whitespace-nowrap px-1 py-4">
                   <button
                     className={`mr-2 text-blue-500 hover:text-blue-700  disabled:text-gray-300`}
                     onClick={() => handleClickEdit(item)}
