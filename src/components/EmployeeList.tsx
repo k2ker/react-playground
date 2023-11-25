@@ -1,12 +1,16 @@
 "use client";
 import { memo, useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { useEmployeeDelete, useEmployeeGet } from "@/api/employee";
+import {
+  useEmployeeDelete,
+  useEmployeeGet,
+  useEmployeeRandomErrorGet,
+} from "@/api/employee";
 import Modal from "./Modal/Modal";
 import EmployeeForm from "./EmployeeForm";
 
 const EmployeeList = () => {
-  const { data: employee } = useEmployeeGet();
+  const { data: employee } = useEmployeeRandomErrorGet();
   const useEmployeeDeleteMutation = useEmployeeDelete();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(

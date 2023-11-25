@@ -15,6 +15,18 @@ export const useEmployeeGet = () =>
     suspense: false,
   });
 
+export const getEmployeeRandomError = async () => {
+  const response = await api.get(`/api/notion/employee/random-error`);
+  return response.data;
+};
+
+export const useEmployeeRandomErrorGet = () =>
+  useQuery(employeeKeys.all, () => getEmployeeRandomError(), {
+    refetchOnWindowFocus: true,
+    retry: false,
+    suspense: true,
+  });
+
 export const postEmployee = async (params: EmployeePostParam) => {
   const response = await api.post(`/api/notion/employee/add`, { ...params });
   return response.data;

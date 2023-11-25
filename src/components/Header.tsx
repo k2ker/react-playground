@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { memo } from "react";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { NavPage } from "@/core/path";
 
 const navVariants = {
   open: { opacity: 1, x: 0, transition: { duration: 0.2 } },
@@ -14,6 +15,7 @@ const navVariants = {
 
 const Header = () => {
   const router = useRouter();
+  const pathName = usePathname();
   const [mounted, setMounted] = useState<boolean>(false);
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
 
@@ -45,6 +47,22 @@ const Header = () => {
         <Link href="/" className="font-bold text-white">
           HOME
         </Link>
+        <nav>
+          <ul className="flex items-center gap-4">
+            {NavPage.map((page) => (
+              <li key={page.path}>
+                <Link
+                  href={page.path}
+                  className={
+                    pathName.startsWith(page.path) ? "text-black" : "text-white"
+                  }
+                >
+                  {page.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         {mounted && Cookies.get("kakao_test_nickname") ? (
           <div className="flex items-center gap-4">
             <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-white">
@@ -163,6 +181,17 @@ const Header = () => {
                 </Link>
               </div>
             )}
+            <nav>
+              <ul className="flex items-center gap-4">
+                {NavPage.map((page) => (
+                  <li key={page.path}>
+                    <Link href={page.path} className="text-white">
+                      {page.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </motion.nav>
         )}
       </AnimatePresence>

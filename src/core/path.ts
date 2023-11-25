@@ -1,6 +1,8 @@
 export const Path = {
   main: "/",
   login: "/login",
+  employee: "/employee",
+  product: "/product",
 };
 
 export const PagesConfig = {
@@ -12,4 +14,23 @@ export const PagesConfig = {
     showHaeder: false,
     title: "로그인",
   },
+  [Path.employee]: {
+    showHaeder: true,
+    title: "직원",
+  },
+  [Path.product]: {
+    showHaeder: true,
+    title: "상품",
+  },
 };
+
+export const NavPage = [
+  {
+    path: Path.employee,
+    name: "직원",
+  },
+  {
+    path: Path.product,
+    name: "상품",
+  },
+];

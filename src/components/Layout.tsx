@@ -10,7 +10,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <body>
-      {PagesConfig[currentPath]?.showHaeder && <Header />}
+      {!PagesConfig[currentPath] ? (
+        <Header />
+      ) : (
+        PagesConfig[currentPath]?.showHaeder && <Header />
+      )}
       {children}
     </body>
   );
