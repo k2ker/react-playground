@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import { getProducts, getProductsError } from "@/api/fake/product";
+import { getProducts } from "@/api/fake/product";
 import ProductItem, { ProductItemSkeleton } from "./ProductItem";
 
 const ProductList = async () => {
-  const products = await getProductsError();
+  const products = await getProducts();
 
   return (
     <Suspense fallback={<ProductListSkeleton />}>

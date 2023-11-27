@@ -10,7 +10,7 @@ import Modal from "./Modal/Modal";
 import EmployeeForm from "./EmployeeForm";
 
 const EmployeeList = () => {
-  const { data: employee } = useEmployeeRandomErrorGet();
+  const { data: employee } = useEmployeeGet();
   const useEmployeeDeleteMutation = useEmployeeDelete();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(

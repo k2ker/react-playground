@@ -1,7 +1,7 @@
 import axios from "axios";
-import { NextResponse } from "next/server";
-
-export async function GET(request: Request) {
+import { NextRequest, NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
 

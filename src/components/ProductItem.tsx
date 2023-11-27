@@ -40,4 +40,18 @@ const ProductItem = ({ item }: ItemProps) => {
   );
 };
 
+export const ProductItemSkeleton = () => {
+  return (
+    <div className="w-full animate-pulse overflow-hidden rounded-lg">
+      <div className="group relative h-96 w-full overflow-hidden bg-slate-200"></div>
+      <div className="rounded-b-lg border-[1px] border-t-0 border-slate-300 bg-white px-2 py-4">
+        <div className="h-4 w-3/4 bg-slate-200"></div>
+        <div className="mt-2 flex">
+          <div className="h-4 w-1/4 bg-slate-200"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default ProductItem;
