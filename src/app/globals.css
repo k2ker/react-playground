@@ -10,7 +10,7 @@ input::-webkit-inner-spin-button {
 
 @layer components {
   .main {
-    @apply h-screen w-full  pt-20;
+    @apply h-screen w-full  pt-16;
   }
   .header-main {
     @apply h-screen w-full  pt-24;
@@ -26,5 +26,8 @@ input::-webkit-inner-spin-button {
   }
   .btn-google {
     @apply flex h-12 w-full items-center justify-center rounded-lg bg-blue-500 text-white;
+  }
+  .btn-naver {
+    @apply flex h-12 w-full items-center justify-center rounded-lg bg-[#06CC80] text-white;
   }
 }

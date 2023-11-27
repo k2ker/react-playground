@@ -63,23 +63,23 @@ const Header = () => {
             ))}
           </ul>
         </nav>
-        {mounted && Cookies.get("kakao_test_nickname") ? (
+        {mounted && Cookies.get("hong_user_nickname") ? (
           <div className="flex items-center gap-4">
             <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-white">
               <Image
-                src={Cookies.get("kakao_test_thumbnail")!}
+                src={Cookies.get("hong_user_thumbnail")!}
                 fill
                 alt="profile"
               />
             </div>
             <span className="font-medium text-white">
-              {Cookies.get("kakao_test_nickname")}
+              {Cookies.get("hong_user_nickname")}
             </span>
             <button
               onClick={() => {
-                Cookies.remove("kakao_test_nickname");
-                Cookies.remove("kakao_test_token");
-                Cookies.remove("kakao_test_thumbnail");
+                Cookies.remove("hong_user_nickname");
+                Cookies.remove("hong_user_token");
+                Cookies.remove("hong_user_thumbnail");
                 router.refresh();
               }}
               className="rounded bg-red-500 px-3 py-2 text-white hover:bg-red-600"
@@ -147,23 +147,23 @@ const Header = () => {
               </svg>
             </div>
 
-            {mounted && Cookies.get("kakao_test_nickname") ? (
+            {mounted && Cookies.get("hong_user_nickname") ? (
               <div className="mt-6 flex flex-col items-center">
                 <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-full border-4 border-blue-500">
                   <Image
-                    src={Cookies.get("kakao_test_thumbnail")!}
+                    src={Cookies.get("hong_user_thumbnail")!}
                     fill
                     alt="profile"
                   />
                 </div>
                 <div className="text-lg font-semibold">
-                  {Cookies.get("kakao_test_nickname")}
+                  {Cookies.get("hong_user_nickname")}
                 </div>
                 <button
                   onClick={() => {
-                    Cookies.remove("kakao_test_nickname");
-                    Cookies.remove("kakao_test_token");
-                    Cookies.remove("kakao_test_thumbnail");
+                    Cookies.remove("hong_user_nickname");
+                    Cookies.remove("hong_user_token");
+                    Cookies.remove("hong_user_thumbnail");
                     router.refresh();
                   }}
                   className="mt-4 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700"

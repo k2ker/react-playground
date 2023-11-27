@@ -6,6 +6,7 @@ const nextConfig = {
       "phinf.pstatic.net",
       "k.kakaocdn.net",
       "fakestoreapi.com",
+      "lh3.googleusercontent.com",
     ],
   },
 };

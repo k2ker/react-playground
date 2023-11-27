@@ -2,6 +2,8 @@ import Providers from "@/components/Providers";
 import "../globals.css";
 import type { Metadata } from "next";
 import Layout from "@/components/Layout";
+import Script from "next/script";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,6 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        <script src="https://accounts.google.com/gsi/client" async></script>
+      </head>
       <Providers>
         <Layout>{children}</Layout>
       </Providers>

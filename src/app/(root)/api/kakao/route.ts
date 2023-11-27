@@ -1,7 +1,7 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 
-async function Proxy(request: Request) {
+export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
 
@@ -16,7 +16,7 @@ async function Proxy(request: Request) {
       grant_type: "authorization_code",
       client_id: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID,
       client_secret: process.env.KAKAO_CLIENT_SECRET,
-      redirect_uri: `${process.env.NEXT_PUBLIC_BASE_PATH}/api/proxy`,
+      redirect_uri: `${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}`,
       code: searchParams.get("code")!,
     });
 
@@ -29,12 +29,12 @@ async function Proxy(request: Request) {
     nextResponse.cookies.set("kakao_test_token", resToken.data.access_token);
 
     nextResponse.cookies.set(
-      "kakao_test_nickname",
+      "hong_user_nickname",
       resMe.data.kakao_account.profile.nickname,
     );
 
     nextResponse.cookies.set(
-      "kakao_test_thumbnail",
+      "hong_user_thumbnail",
       resMe.data.kakao_account.profile.thumbnail_image_url ?? "",
     );
 
@@ -44,5 +44,3 @@ async function Proxy(request: Request) {
     return NextResponse.redirect(new URL(`/`, request.url));
   }
 }
-
-export { Proxy as GET, Proxy as POST };
