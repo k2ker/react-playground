@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
       "Authorization"
     ] = `Bearer ${resToken.data.access_token}`;
 
-    const resMe = await axios.get("	https://openapi.naver.com/v1/nid/me", {});
+    const resMe = await axios.get("https://openapi.naver.com/v1/nid/me", {});
 
     nextResponse.cookies.set(
       "hong_user_nickname",

@@ -1,29 +1,36 @@
+import { request } from "http";
 import { NextRequest, NextResponse } from "next/server";
+import { googleMiddleware } from "../middleware/auth/google";
+import { naverMiddleware } from "../middleware/auth/naver";
+import { kakaoMiddleware } from "../middleware/auth/kakao";
 
 const TOKEN_NAME = "hong_access_token";
 
-export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith("/social")) {
-    if (request.nextUrl.searchParams.get("token")) {
-      const token = request.nextUrl.searchParams.get("token")!;
-      const redirect = request.nextUrl.searchParams.get("redirect") ?? "/";
-      const response = NextResponse.redirect(new URL(redirect, request.url));
-
-      response.cookies.set(TOKEN_NAME, token);
-
-      return response;
-    }
-  }
-
+export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/mypage")) {
     if (!request.cookies.has(TOKEN_NAME)) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
   }
+
+  if (request.nextUrl.pathname.startsWith("/auth/google")) {
+    const nextResponse = await googleMiddleware(request);
+    return nextResponse;
+  }
+
+  if (request.nextUrl.pathname.startsWith("/auth/naver")) {
+    const nextResponse = await naverMiddleware(request);
+    return nextResponse;
+  }
+
+  if (request.nextUrl.pathname.startsWith("/auth/kakao")) {
+    const nextResponse = await kakaoMiddleware(request);
+    return nextResponse;
+  }
 }
 
 export const config = {
-  matcher: ["/social/:path*", "/mypage/:path*"],
+  matcher: ["/social/:path*", "/mypage/:path*", "/auth/:path*"],
 };
 
 //{BASE_URL}/social?token={TOKEN}&expires={EXPIRES}&redirect={REDIRECT}
