@@ -19,7 +19,7 @@ export default async function Youtube() {
   });
 
   return (
-    <main className="main">
+    <main className="main overflow-scroll overflow-x-hidden bg-[#000]">
       <div className="flex flex-col items-center p-8">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <VideoList />

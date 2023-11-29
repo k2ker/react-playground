@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-const getMaxWidth = (width: number) => {
-  return `max-w-[${width}px]`;
+const sizeVariants = {
+  medium: "max-w-[320px]",
 };
 
 const VideoList = () => {
@@ -32,6 +32,10 @@ const VideoList = () => {
     threshold: 0,
   });
 
+  const getMaxWidth = (width: number) => {
+    if (width) return `max-w-[${width}px]`;
+  };
+
   useEffect(() => {
     if (inView) {
       fetchNextPage();
@@ -39,34 +43,29 @@ const VideoList = () => {
   }, [inView]);
 
   출처: https: return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-5">
       {data?.pages?.map((group, i) => (
         <React.Fragment key={i}>
           {group?.items?.map((video: Video) => (
             <div
               key={video.id}
-              className={`flex cursor-pointer ${getMaxWidth(
-                video.snippet.thumbnails.standard.width,
-              )}  flex-col rounded-lg border`}
+              className={`flex cursor-pointer flex-col rounded-lg ${sizeVariants.medium}`}
               onClick={() => router.push(`/youtube/${video.id}`)}
             >
               <Image
-                className="rounded-t-lg"
-                src={video.snippet.thumbnails.standard.url}
+                className=" rounded-lg "
+                src={video.snippet.thumbnails.medium.url}
                 alt={video.snippet.title}
-                width={video.snippet.thumbnails.standard.width}
-                height={video.snippet.thumbnails.standard.height}
+                width={video.snippet.thumbnails.medium.width}
+                height={video.snippet.thumbnails.medium.height}
               />
               <div className="flex flex-col p-4">
-                <p className="mb-2 text-sm text-gray-500">
-                  Duration: {video.contentDetails.duration}
-                </p>
-                <h3 className="mb-2 line-clamp-1 text-lg font-bold">
+                <h3 className="mb-2 line-clamp-2 text-[1rem] font-bold text-white">
                   {video.snippet.title}
                 </h3>
 
-                <p className="line-clamp-1 text-gray-600">
-                  {video.snippet.description}
+                <p className="line-clamp-1 text-[0.8rem] text-[#aaa]">
+                  {video.snippet.channelTitle}
                 </p>
               </div>
             </div>
