@@ -27,7 +27,9 @@ export const useAuthStore = create<AuthState>((set) => ({
   logout: (callback) => {
     Cookies.remove("hong_access_token");
     set({ isLoggedIn: false });
-    queryClient.removeQueries(userKeys.all);
+    queryClient.removeQueries({
+      queryKey: userKeys.all,
+    });
     callback && callback();
   },
 }));

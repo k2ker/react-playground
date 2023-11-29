@@ -3,6 +3,7 @@ export const Path = {
   login: "/login",
   employee: "/employee",
   product: "/product",
+  youtube: "/youtube",
 };
 
 export const PagesConfig = {
@@ -22,6 +23,10 @@ export const PagesConfig = {
     showHaeder: true,
     title: "상품",
   },
+  [Path.youtube]: {
+    showHaeder: true,
+    title: "유튜브",
+  },
 };
 
 export const NavPage = [
@@ -32,5 +37,9 @@ export const NavPage = [
   {
     path: Path.product,
     name: "상품",
+  },
+  {
+    path: Path.youtube,
+    name: "유튜브",
   },
 ];

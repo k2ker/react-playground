@@ -8,7 +8,14 @@ interface Props {
 }
 
 const Providers = ({ children }: Props) => {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {},
+        },
+      }),
+  );
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -7,6 +7,7 @@ const nextConfig = {
       "k.kakaocdn.net",
       "fakestoreapi.com",
       "lh3.googleusercontent.com",
+      "i.ytimg.com",
     ],
   },
 };

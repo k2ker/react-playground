@@ -93,14 +93,14 @@ const EmployeeList = () => {
                   <button
                     className={`mr-2 text-blue-500 hover:text-blue-700  disabled:text-gray-300`}
                     onClick={() => handleClickEdit(item)}
-                    disabled={useEmployeeDeleteMutation.isLoading}
+                    disabled={useEmployeeDeleteMutation.isPending}
                   >
                     수정
                   </button>
                   <button
                     className="text-red-500 hover:text-red-700 disabled:text-gray-300"
                     onClick={() => handleClickDelete(item.id)}
-                    disabled={useEmployeeDeleteMutation.isLoading}
+                    disabled={useEmployeeDeleteMutation.isPending}
                   >
                     삭제
                   </button>

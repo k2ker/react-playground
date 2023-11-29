@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import api from "./api";
 
 export const employeeKeys = {
@@ -11,8 +16,9 @@ export const getEmployee = async () => {
 };
 
 export const useEmployeeGet = () =>
-  useQuery(employeeKeys.all, () => getEmployee(), {
-    suspense: false,
+  useQuery({
+    queryKey: employeeKeys.all,
+    queryFn: () => getEmployee(),
   });
 
 export const getEmployeeRandomError = async () => {
@@ -21,10 +27,11 @@ export const getEmployeeRandomError = async () => {
 };
 
 export const useEmployeeRandomErrorGet = () =>
-  useQuery(employeeKeys.all, () => getEmployeeRandomError(), {
+  useSuspenseQuery({
+    queryKey: employeeKeys.all,
+    queryFn: () => getEmployeeRandomError(),
     refetchOnWindowFocus: true,
     retry: false,
-    suspense: true,
   });
 
 export const postEmployee = async (params: EmployeePostParam) => {
@@ -34,9 +41,10 @@ export const postEmployee = async (params: EmployeePostParam) => {
 
 export const useEmployeePost = () => {
   const queryClient = useQueryClient();
-  return useMutation((params: EmployeePostParam) => postEmployee(params), {
+  return useMutation({
+    mutationFn: (params: EmployeePostParam) => postEmployee(params),
     onSuccess: () => {
-      queryClient.invalidateQueries(employeeKeys.all);
+      queryClient.invalidateQueries({ queryKey: employeeKeys.all });
     },
   });
 };
@@ -50,15 +58,15 @@ export const patchEmployee = async (id: string, params: EmployeePatchParam) => {
 
 export const useEmployeePatch = () => {
   const queryClient = useQueryClient();
-  return useMutation(
-    ({ id, params }: { id: string; params: EmployeePatchParam }) =>
+  return useMutation({
+    mutationFn: ({ id, params }: { id: string; params: EmployeePatchParam }) =>
       patchEmployee(id, params),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(employeeKeys.all);
-      },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: employeeKeys.all,
+      });
     },
-  );
+  });
 };
 
 export const deleteEmployee = async (id: string) => {
@@ -68,9 +76,12 @@ export const deleteEmployee = async (id: string) => {
 
 export const useEmployeeDelete = () => {
   const queryClient = useQueryClient();
-  return useMutation((id: string) => deleteEmployee(id), {
+  return useMutation({
+    mutationFn: (id: string) => deleteEmployee(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(employeeKeys.all);
+      queryClient.invalidateQueries({
+        queryKey: employeeKeys.all,
+      });
     },
   });
 };

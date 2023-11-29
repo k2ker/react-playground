@@ -7,7 +7,9 @@ const postSignIn = async (params: SignInParam) => {
 };
 
 export const useSignInPost = () => {
-  return useMutation((params: SignInParam) => postSignIn(params));
+  return useMutation({
+    mutationFn: (params: SignInParam) => postSignIn(params),
+  });
 };
 
 const postSignUp = async (params: SignUpParam) => {
@@ -16,7 +18,9 @@ const postSignUp = async (params: SignUpParam) => {
 };
 
 export const useSignUpPost = () => {
-  return useMutation((params: SignUpParam) => postSignUp(params));
+  return useMutation({
+    mutationFn: (params: SignUpParam) => postSignUp(params),
+  });
 };
 
 const postEmailDupCheck = async (params: EmailDupCheckParam) => {
@@ -25,5 +29,7 @@ const postEmailDupCheck = async (params: EmailDupCheckParam) => {
 };
 
 export const useEmailDupCheckPost = () => {
-  return useMutation((params: EmailDupCheckParam) => postEmailDupCheck(params));
+  return useMutation({
+    mutationFn: (params: EmailDupCheckParam) => postEmailDupCheck(params),
+  });
 };

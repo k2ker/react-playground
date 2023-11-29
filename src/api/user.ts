@@ -12,8 +12,9 @@ const getUserMe = async () => {
 };
 
 export const useUserMeGet = () =>
-  useQuery(userKeys.all, () => getUserMe(), {
-    suspense: false,
+  useQuery({
+    queryKey: userKeys.all,
+    queryFn: () => getUserMe(),
     enabled: !!Cookies.get("hong_access_token"),
   });
 
@@ -23,10 +24,12 @@ const patchUserMe = (params: UserPatchParam) => {
 
 export const usePatchUserMe = () => {
   const queryClient = useQueryClient();
-
-  return useMutation((params: UserPatchParam) => patchUserMe(params), {
+  return useMutation({
+    mutationFn: (params: UserPatchParam) => patchUserMe(params),
     onSuccess: () => {
-      queryClient.invalidateQueries(userKeys.all);
+      queryClient.invalidateQueries({
+        queryKey: userKeys.all,
+      });
     },
   });
 };

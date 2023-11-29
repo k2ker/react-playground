@@ -11,8 +11,9 @@ export const getProducts = async () => {
 };
 
 export const useProductsGet = () =>
-  useQuery(productKeys.all, () => getProducts(), {
-    suspense: false,
+  useQuery({
+    queryKey: productKeys.all,
+    queryFn: () => getProducts(),
   });
 
 export const getProduct = async (id: string) => {
@@ -21,6 +22,7 @@ export const getProduct = async (id: string) => {
 };
 
 export const useProductGet = (id: string) =>
-  useQuery(productKeys.all, () => getProduct(id), {
-    suspense: false,
+  useQuery({
+    queryKey: productKeys.all,
+    queryFn: () => getProduct(id),
   });
