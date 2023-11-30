@@ -15,7 +15,7 @@ export default async function Youtube() {
     queryFn: getVideoPage,
     initialPageParam: "",
     getNextPageParam: (lastPage, pages) => lastPage.nextPageToken || undefined,
-    pages: 2,
+    pages: 1,
   });
 
   return (

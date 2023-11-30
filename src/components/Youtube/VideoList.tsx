@@ -32,17 +32,13 @@ const VideoList = () => {
     threshold: 0,
   });
 
-  const getMaxWidth = (width: number) => {
-    if (width) return `max-w-[${width}px]`;
-  };
-
   useEffect(() => {
     if (inView) {
       fetchNextPage();
     }
   }, [inView]);
 
-  출처: https: return (
+  return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-5">
       {data?.pages?.map((group, i) => (
         <React.Fragment key={i}>
@@ -72,7 +68,9 @@ const VideoList = () => {
           ))}
         </React.Fragment>
       ))}
-      <button
+      <div ref={ref} className="h-6 w-full bg-transparent"></div>
+
+      {/* <button
         ref={ref}
         onClick={() => fetchNextPage()}
         disabled={!hasNextPage || isFetchingNextPage}
@@ -82,7 +80,7 @@ const VideoList = () => {
           : hasNextPage
           ? "Load More"
           : "Nothing more to load"}
-      </button>
+      </button> */}
     </div>
   );
 };

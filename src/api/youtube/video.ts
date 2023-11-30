@@ -17,8 +17,19 @@ export const getVideoPage = async ({
       chart: "mostPopular",
       // videoCategoryId: 28,
       regionCode: "KR",
-      maxResults: 10,
+      maxResults: 15,
       pageToken: pageParam,
+    },
+  });
+  return response.data;
+};
+
+export const getVideo = async (id: string) => {
+  const response = await api.get(`/youtube/v3/videos`, {
+    params: {
+      key: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
+      part: "snippet,contentDetails",
+      id: id,
     },
   });
   return response.data;
@@ -30,6 +41,7 @@ export const getVideos = async () => {
       key: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
       part: "snippet,contentDetails",
       chart: "mostPopular",
+      myRating: "like",
       videoCategoryId: 28,
       regionCode: "KR",
       maxResults: 20,
