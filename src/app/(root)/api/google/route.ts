@@ -7,8 +7,6 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const code = searchParams.get("code");
 
-    console.log(searchParams);
-
     const tokenResponse = await axios.post(
       `https://oauth2.googleapis.com/token`,
       {

@@ -21,7 +21,7 @@ export default async function Youtube({ params }: { params: { id: string } }) {
   const data = await getVideo(params?.id);
 
   return (
-    <main className="main overflow-scroll overflow-x-hidden bg-[#000]">
+    <main className="main  bg-[#000]">
       <div className="flex h-full w-full flex-col items-center ">
         <div className="flex w-full max-w-[1024px] flex-col p-4">
           <iframe

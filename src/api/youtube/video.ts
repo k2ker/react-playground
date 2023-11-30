@@ -8,7 +8,7 @@ export const videoKeys = {
 export const getVideoPage = async ({
   pageParam = "",
 }: {
-  pageParam: string | undefined;
+  pageParam: string;
 }) => {
   const response = await api.get(`/youtube/v3/videos`, {
     params: {
@@ -17,7 +17,7 @@ export const getVideoPage = async ({
       chart: "mostPopular",
       // videoCategoryId: 28,
       regionCode: "KR",
-      maxResults: 15,
+      maxResults: 20,
       pageToken: pageParam,
     },
   });

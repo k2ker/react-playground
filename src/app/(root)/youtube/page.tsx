@@ -1,4 +1,3 @@
-import api from "@/api/youtube/api";
 import { getVideoPage } from "@/api/youtube/video";
 import VideoList from "@/components/Youtube/VideoList";
 import {
@@ -14,12 +13,11 @@ export default async function Youtube() {
     queryKey: ["youtubeVideos"],
     queryFn: getVideoPage,
     initialPageParam: "",
-    getNextPageParam: (lastPage, pages) => lastPage.nextPageToken || undefined,
-    pages: 1,
+    getNextPageParam: (lastPage: any) => lastPage.nextPageToken || undefined,
   });
 
   return (
-    <main className="main overflow-scroll overflow-x-hidden bg-[#000]">
+    <main className="main  bg-[#000]">
       <div className="flex flex-col items-center p-8">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <VideoList />

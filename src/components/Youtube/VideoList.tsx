@@ -13,6 +13,9 @@ const sizeVariants = {
 
 const VideoList = () => {
   const router = useRouter();
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
   const {
     data,
     error,
@@ -24,12 +27,10 @@ const VideoList = () => {
     queryKey: ["youtubeVideos"],
     queryFn: getVideoPage,
     initialPageParam: "",
-    getNextPageParam: (lastPage: YoutubeVideoList, pages) =>
-      lastPage.nextPageToken || undefined,
+    getNextPageParam: (lastPage: YoutubeVideoList, pages) => {
+      return lastPage.nextPageToken || "";
+    },
     staleTime: Infinity,
-  });
-  const { ref, inView } = useInView({
-    threshold: 0,
   });
 
   useEffect(() => {
@@ -39,49 +40,39 @@ const VideoList = () => {
   }, [inView]);
 
   return (
-    <div className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-5">
-      {data?.pages?.map((group, i) => (
-        <React.Fragment key={i}>
-          {group?.items?.map((video: Video) => (
-            <div
-              key={video.id}
-              className={`flex cursor-pointer flex-col rounded-lg ${sizeVariants.medium}`}
-              onClick={() => router.push(`/youtube/${video.id}`)}
-            >
-              <Image
-                className=" rounded-lg "
-                src={video.snippet.thumbnails.medium.url}
-                alt={video.snippet.title}
-                width={video.snippet.thumbnails.medium.width}
-                height={video.snippet.thumbnails.medium.height}
-              />
-              <div className="flex flex-col p-4">
-                <h3 className="mb-2 line-clamp-2 text-[1rem] font-bold text-white">
-                  {video.snippet.title}
-                </h3>
+    <>
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-5">
+        {data?.pages?.map((group, i) => (
+          <React.Fragment key={i}>
+            {group?.items?.map((video: Video) => (
+              <div
+                key={video.id}
+                className={`flex cursor-pointer flex-col rounded-lg ${sizeVariants.medium}`}
+                onClick={() => router.push(`/youtube/${video.id}`)}
+              >
+                <Image
+                  className=" rounded-lg "
+                  src={video.snippet.thumbnails.medium.url}
+                  alt={video.snippet.title}
+                  width={video.snippet.thumbnails.medium.width}
+                  height={video.snippet.thumbnails.medium.height}
+                />
+                <div className="flex flex-col p-4">
+                  <h3 className="mb-2 line-clamp-2 text-[1rem] font-bold text-white">
+                    {video.snippet.title}
+                  </h3>
 
-                <p className="line-clamp-1 text-[0.8rem] text-[#aaa]">
-                  {video.snippet.channelTitle}
-                </p>
+                  <p className="line-clamp-1 text-[0.8rem] text-[#aaa]">
+                    {video.snippet.channelTitle}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </React.Fragment>
-      ))}
-      <div ref={ref} className="h-6 w-full bg-transparent"></div>
-
-      {/* <button
-        ref={ref}
-        onClick={() => fetchNextPage()}
-        disabled={!hasNextPage || isFetchingNextPage}
-      >
-        {isFetchingNextPage
-          ? "Loading more..."
-          : hasNextPage
-          ? "Load More"
-          : "Nothing more to load"}
-      </button> */}
-    </div>
+            ))}
+          </React.Fragment>
+        ))}
+      </div>
+      <div ref={ref} className=" h-4 w-full bg-transparent"></div>
+    </>
   );
 };
 
