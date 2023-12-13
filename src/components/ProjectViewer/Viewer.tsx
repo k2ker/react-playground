@@ -20,8 +20,9 @@ const Viewer = ({ id }: Props) => {
 
   useEffect(() => {
     const getData = async () => {
-      setLoading(true);
       if (!context.current) {
+        setLoading(true);
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance({
           container: vtkContainerRef.current!,
         });
