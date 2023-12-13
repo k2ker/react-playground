@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, memo, useState } from "react";
+import { useRef, useEffect, memo, useState, HTMLAttributes } from "react";
 import "@kitware/vtk.js/Rendering/Profiles/Geometry";
 import vtkFullScreenRenderWindow from "@kitware/vtk.js/Rendering/Misc/FullScreenRenderWindow";
 import vtkActor from "@kitware/vtk.js/Rendering/Core/Actor";
@@ -8,7 +8,7 @@ import vtkMapper from "@kitware/vtk.js/Rendering/Core/Mapper";
 import vtkConeSource from "@kitware/vtk.js/Filters/Sources/ConeSource";
 import Loading from "@/app/(root)/viewer/[[...id]]/loading";
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   source: any;
 }
 
