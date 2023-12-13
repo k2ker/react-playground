@@ -16,11 +16,10 @@ const Viewer = ({ id }: Props) => {
   //   const { data: project } = useProjectGet(id ?? "");
   const vtkContainerRef = useRef(null);
   const context = useRef<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
-      throw new Error("Not implemented");
       if (!context.current) {
         setLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 3000));
