@@ -9,11 +9,10 @@ import vtkConeSource from "@kitware/vtk.js/Filters/Sources/ConeSource";
 import Loading from "@/app/(root)/viewer/[[...id]]/loading";
 
 interface Props {
-  id?: string;
+  source: any;
 }
 
-const Viewer = ({ id }: Props) => {
-  //   const { data: project } = useProjectGet(id ?? "");
+const Viewer = ({ source }: Props) => {
   const vtkContainerRef = useRef(null);
   const context = useRef<any>(null);
   const [loading, setLoading] = useState(false);
@@ -26,10 +25,10 @@ const Viewer = ({ id }: Props) => {
         const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance({
           container: vtkContainerRef.current!,
         });
-        const coneSource = vtkConeSource.newInstance({ height: 1.0 });
 
+        const projectSource = source?.newInstance({ height: 1.0 });
         const mapper = vtkMapper.newInstance();
-        mapper.setInputConnection(coneSource.getOutputPort());
+        mapper.setInputConnection(projectSource.getOutputPort());
 
         const actor = vtkActor.newInstance();
         actor.setMapper(mapper);
@@ -49,7 +48,7 @@ const Viewer = ({ id }: Props) => {
           fullScreenRenderer,
           renderWindow,
           renderer,
-          coneSource,
+          projectSource,
           actor,
           mapper,
         };
@@ -60,11 +59,11 @@ const Viewer = ({ id }: Props) => {
 
     return () => {
       if (context.current) {
-        const { fullScreenRenderer, coneSource, actor, mapper } =
+        const { fullScreenRenderer, projectSource, actor, mapper } =
           context.current;
         actor.delete();
         mapper.delete();
-        coneSource.delete();
+        projectSource.delete();
         fullScreenRenderer.delete();
         context.current = null;
       }
@@ -74,7 +73,7 @@ const Viewer = ({ id }: Props) => {
   return (
     <>
       {loading && <Loading />}
-      <div className="h-full w-full" ref={vtkContainerRef} />
+      <div ref={vtkContainerRef} />
     </>
   );
 };
