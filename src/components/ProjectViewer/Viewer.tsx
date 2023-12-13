@@ -20,6 +20,7 @@ const Viewer = ({ id }: Props) => {
 
   useEffect(() => {
     const getData = async () => {
+      throw new Error("Not implemented");
       if (!context.current) {
         setLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 3000));
