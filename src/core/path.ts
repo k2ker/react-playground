@@ -4,6 +4,7 @@ export const Path = {
   employee: "/employee",
   product: "/product",
   youtube: "/youtube",
+  viewer: "/viewer",
 };
 
 export const PagesConfig = {
@@ -26,6 +27,10 @@ export const PagesConfig = {
   [Path.youtube]: {
     showHaeder: true,
     title: "유튜브",
+  },
+  [Path.viewer]: {
+    showHaeder: false,
+    title: "뷰어",
   },
 };
 

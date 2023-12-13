@@ -4,7 +4,7 @@ import { getVideoPage } from "@/api/youtube/video";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 
 const sizeVariants = {
@@ -28,16 +28,16 @@ const VideoList = () => {
     queryFn: getVideoPage,
     initialPageParam: "",
     getNextPageParam: (lastPage: YoutubeVideoList, pages) => {
-      return lastPage.nextPageToken || "";
+      return lastPage.nextPageToken || undefined;
     },
     staleTime: Infinity,
   });
 
   useEffect(() => {
-    if (inView) {
+    if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [inView]);
+  }, [inView, data]);
 
   return (
     <>
@@ -53,13 +53,14 @@ const VideoList = () => {
                 <Image
                   className=" rounded-lg "
                   src={video.snippet.thumbnails.medium.url}
+                  // src={"/img_sign_up.png"}
                   alt={video.snippet.title}
                   width={video.snippet.thumbnails.medium.width}
                   height={video.snippet.thumbnails.medium.height}
                 />
                 <div className="flex flex-col p-4">
                   <h3 className="mb-2 line-clamp-2 text-[1rem] font-bold text-white">
-                    {video.snippet.title}
+                    {/* {video.snippet.title} */} {video.snippet.channelTitle}
                   </h3>
 
                   <p className="line-clamp-1 text-[0.8rem] text-[#aaa]">
@@ -71,7 +72,7 @@ const VideoList = () => {
           </React.Fragment>
         ))}
       </div>
-      <div ref={ref} className=" h-4 w-full bg-transparent"></div>
+      <div ref={ref} className=" h-4 w-full bg-transparent "></div>
     </>
   );
 };

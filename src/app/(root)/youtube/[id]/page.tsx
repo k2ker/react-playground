@@ -1,4 +1,5 @@
 import { getVideo } from "@/api/youtube/video";
+import { Metadata } from "next/types";
 
 declare global {
   interface Window {
@@ -16,6 +17,14 @@ const convertTextToHTML = (text: string) => {
 
   return withLinks;
 };
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const data: YoutubeVideoList = await getVideo(params?.id);
+  const video = data.items[0];
+  return {
+    title: video.snippet.title,
+  };
+}
 
 export default async function Youtube({ params }: { params: { id: string } }) {
   const data = await getVideo(params?.id);

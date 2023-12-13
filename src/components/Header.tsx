@@ -43,7 +43,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed left-0 top-0 z-50 flex h-16 w-full items-center justify-between bg-blue-500 p-4 md:flex">
+      <header className="fixed left-0 top-0 z-50 flex h-16 w-full items-center justify-between bg-[#474646] p-4 md:flex">
         <Link href="/" className="font-bold text-white">
           HOME
         </Link>
