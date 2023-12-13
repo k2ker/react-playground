@@ -3,8 +3,11 @@
 import vtkConeSource from "@kitware/vtk.js/Filters/Sources/ConeSource";
 import Viewer from "@/components/ProjectViewer/Viewer";
 import { Suspense } from "react";
+import { useProductGet } from "@/api/fake/product";
 
 export default function ViewerPage({ params }: { params: { id: string } }) {
+  const { data } = useProductGet(params?.id);
+
   const vtkConeSourceArray = [
     vtkConeSource,
     vtkConeSource,
