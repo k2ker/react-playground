@@ -7,12 +7,14 @@ export const projectKeys = {
 };
 
 export const getProject = async (id: string) => {
-  const response = await api.get(`/api/notion/employee/gets/${id}`);
+  const randomDelay = Math.floor(Math.random() * 3000);
+  await new Promise((resolve) => setTimeout(resolve, randomDelay));
+  const response = await api.get(`/api/notion/employee/get`);
   return response.data;
 };
 
 export const useProjectGet = (id: string) =>
   useSuspenseQuery({
-    queryKey: [...projectKeys.id(id)],
+    queryKey: projectKeys.id(id),
     queryFn: () => getProject(id),
   });

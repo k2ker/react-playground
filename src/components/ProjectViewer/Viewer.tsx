@@ -5,15 +5,13 @@ import "@kitware/vtk.js/Rendering/Profiles/Geometry";
 import vtkFullScreenRenderWindow from "@kitware/vtk.js/Rendering/Misc/FullScreenRenderWindow";
 import vtkActor from "@kitware/vtk.js/Rendering/Core/Actor";
 import vtkMapper from "@kitware/vtk.js/Rendering/Core/Mapper";
-import vtkConeSource from "@kitware/vtk.js/Filters/Sources/ConeSource";
-import Loading from "@/app/(root)/viewer/[[...id]]/loading";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   source: any;
 }
 
 const Viewer = ({ source }: Props) => {
-  const vtkContainerRef = useRef(null);
+  const vtkContainerRef = useRef<HTMLDivElement | null>(null);
   const context = useRef<any>(null);
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +19,9 @@ const Viewer = ({ source }: Props) => {
     const getData = async () => {
       if (!context.current) {
         setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 3000));
+        const randomDelay = Math.floor(Math.random() * 3000);
+        await new Promise((resolve) => setTimeout(resolve, randomDelay));
+
         const fullScreenRenderer = vtkFullScreenRenderWindow.newInstance({
           container: vtkContainerRef.current!,
         });
@@ -68,13 +68,17 @@ const Viewer = ({ source }: Props) => {
         context.current = null;
       }
     };
-  }, [vtkContainerRef]);
+  }, [vtkContainerRef, source]);
 
   return (
-    <>
-      {loading && <Loading />}
-      <div ref={vtkContainerRef} />
-    </>
+    <div className="h-full w-full">
+      {loading && (
+        <div className="flex h-full min-h-[20rem] animate-pulse items-center justify-center rounded-lg bg-gray-800 p-4 text-xl font-bold text-white shadow-lg">
+          <span className="loader-viewer"></span>
+        </div>
+      )}
+      <div className="overflow-hidden rounded-lg" ref={vtkContainerRef} />
+    </div>
   );
 };
 

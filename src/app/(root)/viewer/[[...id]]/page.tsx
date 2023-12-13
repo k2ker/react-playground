@@ -1,12 +1,18 @@
 "use client";
 
 import vtkConeSource from "@kitware/vtk.js/Filters/Sources/ConeSource";
-import Viewer from "@/components/ProjectViewer/Viewer";
-import { Fragment, Suspense } from "react";
-import { useProductGet } from "@/api/fake/product";
+import { Fragment } from "react";
+import { useProjectGet } from "@/api/viewer/project";
+import dynamic from "next/dynamic";
+import Loading from "./loading";
+
+const Viewer = dynamic(() => import("@/components/ProjectViewer/Viewer"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
 
 export default function ViewerPage({ params }: { params: { id: string } }) {
-  const { data } = useProductGet(params?.id);
+  const { data } = useProjectGet(params?.id);
 
   const vtkConeSourceArray = [
     vtkConeSource,
@@ -23,9 +29,7 @@ export default function ViewerPage({ params }: { params: { id: string } }) {
       <div className="grid h-full w-full gap-4 p-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {vtkConeSourceArray.map((source, idx) => (
           <Fragment key={idx}>
-            <Suspense>
-              <Viewer source={source} />
-            </Suspense>
+            <Viewer source={source} />
           </Fragment>
         ))}
       </div>
