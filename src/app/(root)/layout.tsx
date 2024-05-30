@@ -48,6 +48,11 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-NBKC8J6V');`,
           }}
         />
+        <Script
+          id="twitch"
+          strategy="afterInteractive"
+          src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"
+        />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-NBKC8J6V"
