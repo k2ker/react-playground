@@ -5,9 +5,7 @@ import axios from "axios";
 export default function Product() {
   const handleClickTest = () => {
     axios
-      .post("https://04e4-211-179-11-20.ngrok-free.app/api/set-cookie", {
-        withCredentials: true,
-      })
+      .post("https://04e4-211-179-11-20.ngrok-free.app/api/set-cookie")
       .then((res) => {
         console.log(res);
       });
